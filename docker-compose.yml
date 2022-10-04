@@ -1,0 +1,35 @@
+services:
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: .
+# Only will build development stage from our dockerfile. Note that in the dockerfile we have multistage images
+      target: development
+    env_file:
+        - .env
+    volumes:
+      - .:/usr/src/app
+# Note that here the volumes are not mapped, this means that the node_modules dir in the local machine and the conatiner wont
+# be in sync. This will ignore the node_modules folder, which means that everytime we install new packages, we re-build the image
+      - /usr/src/app/node_modules
+# After building the image, runs command inside container for dev mode
+    command: npm run dev
+    ports:
+      - 4000:4000
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    ports: 
+      - 5432:5432
+# Here we have used the named volume thats created in the docker host directory and mapped with a container's directory
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+volumes:
+  postgres:
