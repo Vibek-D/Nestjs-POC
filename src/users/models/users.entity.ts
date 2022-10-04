@@ -5,7 +5,7 @@ export enum UserRole {
   ADMIN = 'admin',
 }
 
-@Entity('user')
+@Entity('users')
 export class UserEntity {
   @PrimaryGeneratedColumn('increment')
   id: number;
