@@ -9,6 +9,7 @@ export class UsersController {
 
   @Post()
   createUser(@Body() user: IUser): Observable<IUser> {
+    console.log(user);
     return this.userService.createUser(user);
   }
 

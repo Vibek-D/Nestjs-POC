@@ -9,14 +9,14 @@ import { IUser } from './models/users.interface';
 export class UsersService {
   constructor(
     @InjectRepository(UserEntity)
-    private UserRepository: Repository<UserEntity>,
+    private readonly userRepository: Repository<UserEntity>,
   ) {}
 
   createUser(user: IUser): Observable<IUser> {
-    return from(this.UserRepository.save(user));
+    return from(this.userRepository.save(user));
   }
 
   getAllUsers(): Observable<IUser[]> {
-    return from(this.UserRepository.find());
+    return from(this.userRepository.find());
   }
 }

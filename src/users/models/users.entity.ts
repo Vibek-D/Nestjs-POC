@@ -5,9 +5,9 @@ export enum UserRole {
   ADMIN = 'admin',
 }
 
-@Entity()
+@Entity('user')
 export class UserEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment')
   id: number;
 
   @Column()
@@ -22,4 +22,10 @@ export class UserEntity {
     default: UserRole.ADMIN,
   })
   role: string;
+
+  @Column({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createdAt: Date;
 }
