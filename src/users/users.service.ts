@@ -15,4 +15,8 @@ export class UsersService {
   createUser(user: IUser): Observable<IUser> {
     return from(this.UserRepository.save(user));
   }
+
+  getAllUsers(): Observable<IUser[]> {
+    return from(this.UserRepository.find());
+  }
 }
