@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Put,
 } from '@nestjs/common';
@@ -35,7 +36,7 @@ export class UsersController {
   }
 
   @Delete(':id')
-  deleteUser(@Param('id') id: number): Observable<DeleteResult> {
+  deleteUser(@Param('id', ParseIntPipe) id: number): Observable<DeleteResult> {
     return this.userService.deleteUser(id);
   }
 }
